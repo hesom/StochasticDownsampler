@@ -27,7 +27,7 @@ class StochasticDownsampler(nn.Module):
         if self.jitter_type == "uniform":
             self.jitter_fn = torch.rand
         elif self.jitter_type == "normal":
-            self.jitter_fn = torch.randn
+            self.jitter_fn = lambda *args, **kwargs : torch.randn(*args, **kwargs) + 0.5
         else:
             raise NotImplementedError(f"Jitter type {jitter_type} not supported")
 
