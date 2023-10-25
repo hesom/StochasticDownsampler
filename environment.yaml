@@ -1,0 +1,21 @@
+name: l2s
+channels:
+  - pytorch
+  - nvidia
+  - defaults
+  - anaconda
+dependencies:
+  - python=3.9
+  - numpy
+  - pytorch
+  - torchvision
+  - pytorch-cuda=11.6
+  - matplotlib
+  - jupyter
+  - scipy
+  - tqdm
+  - pip
+  - pip:
+    - mitsuba
+    - einops
+    - sympy
