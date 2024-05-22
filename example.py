@@ -11,10 +11,10 @@ class SimpleNet(nn.Module):
         self.cnn = nn.Sequential( # mnist starts at 28 x 28
                 nn.Conv2d(1, 32, 3, padding=1),
                 nn.ReLU(),
-                StochasticDownsampler(resolution=(14,14), spp=4, reduction="mean"), # 32 x 14 x 14
+                StochasticDownsampler(resolution=(14,14), spp=4, jitter_type="normal", normal_std=0.5, reduction="mean"), # 32 x 14 x 14
                 nn.Conv2d(32, 64, 3, padding=1),
                 nn.ReLU(),
-                StochasticDownsampler(resolution=(7,7), spp=4, reduction="mean"), # 64 x 7 x 7
+                StochasticDownsampler(resolution=(7,7), spp=4, jitter_type="normal", normal_std=0.5, reduction="mean"), # 64 x 7 x 7
             )
         self.fc = nn.Sequential(
                 nn.Linear(64*7*7, 128),

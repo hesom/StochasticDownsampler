@@ -11,7 +11,8 @@ class StochasticDownsampler(nn.Module):
                  resolution: Tuple[int, int],
                  spp: int = 16,
                  reduction: Literal["mean", "sum", "min", "max", "prod"] = "mean",
-                 jitter_type: Literal["uniform", "normal"] = "uniform"
+                 jitter_type: Literal["uniform", "normal"] = "uniform",
+                 normal_std: float = 1,
                  ):
         super().__init__()
         if (not isinstance(resolution, tuple)
@@ -24,10 +25,11 @@ class StochasticDownsampler(nn.Module):
         self.spp = spp
         self.reduction = reduction
         self.jitter_type = jitter_type
+        self.normal_std = normal_std
         if self.jitter_type == "uniform":
             self.jitter_fn = torch.rand
         elif self.jitter_type == "normal":
-            self.jitter_fn = lambda *args, **kwargs : torch.randn(*args, **kwargs) + 0.5
+            self.jitter_fn = lambda *args, **kwargs : self.normal_std*torch.randn(*args, **kwargs) + 0.5
         else:
             raise NotImplementedError(f"Jitter type {jitter_type} not supported")
 
